@@ -1,4 +1,4 @@
-# Telegram Forwarder Bot
+# Telegram Copier Bot
 ### Copy/Paste a channel messages to your channel
 
 <br>
