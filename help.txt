@@ -1,0 +1,43 @@
+<b>add channel [base] to [target]</b>
+├─ Link "base" channel to "target" channel
+├─ :: <code>add channel @durov to @username</code>
+├─ :: <code>add channel -100123456 to -100654321</code>
+
+<b>remove channel [base]</b>
+├─ Unlink "base" channel from all target channels
+├─ :: <code>remove channel @durov</code>
+├─ :: <code>remove channel -100123456</code>
+
+<b>add filter "[base]" to "[target]"</b>
+├─ Filter "base" word to "target" word
+├─ :: <code>add filter "hello" to "bye"</code>
+├─ :: <code>add filter "me" to "you</code>
+
+<b>remove filter "[base]"</b>
+├─ Remove all filters of "base" word
+├─ :: <code>remove filter "hello"</code>
+
+<b>sign text [text]</b>
+Update sign text to [text]
+:: <code>sign text Join my channel @username</code>
+
+<b>filters</b>
+├─ Show all filters
+
+<b>channels</b>
+├─ Show all linked channels
+
+<b>settings</b>
+├─ Show all settings
+
+<b>on | off</b>
+├─ Turn bot on or off
+
+<b>filters [ on | off ]</b>
+├─ Enable/Disable filtering words
+
+<b>sign [ on | off ]</b>
+├─ Enable/Disable adding signature
+
+<b>help</b>
+├─ Show this message
