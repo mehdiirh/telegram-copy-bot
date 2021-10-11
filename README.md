@@ -30,9 +30,21 @@ This is useful when:
 ## Commands
 This bot will only answer to `itself` and `sudos`
 
-| Command 	| Description 	| Example 	|
+| Command 	| Description 	| Examples 	|
 |---	|---	|---	|
-| add channel [base] to [target] 	| Link "base" channel to "target" channel 	| add channel @durov to @usernam<br>add channel -100123456 to -100654321 	|
-|  	|  	|  	|
-|  	|  	|  	|
+| add channel [base] to [target] 	| Link "base" channel to "target" channel 	| - add channel @durov to @username<br>- add channel -100123456 to -100654321 	|
+| remove channel [base] 	| Unlink "base" channel from all target channels 	| - remove channel @durov<br>- remove channel -100123456 	|
+| add filter "[base]" to "[target]" 	| Filter "base" word to "target" word 	| - add filter "hello" to "bye"<br>- add filter "me" to "you" 	|
+| remove filter "[base]" 	| Remove all filters of "base" word 	| - remove filter "hello" 	|
+| sign text [text] 	| Update sign text to [text] 	| - sign text Join my channel @username 	|
+| filters 	| Show all filters 	|  	|
+| channels 	| Show all linked channels 	|  	|
+| settings 	| Show all settings 	|  	|
+| on \| off 	| Turn bot on or off 	| - on<br>- off 	|
+| filters [ on \| off ] 	| Enable/Disable filtering words 	| - filters on<br>- filters off 	|
+| sign [ on \| off ] 	| Enable/Disable adding signature 	| - sign on<br>- sign off 	|
+| help 	| Show this table as a message 	|  	|
 
+---
+
+Support: [Join Group](https://t.me/PythonUnion)
