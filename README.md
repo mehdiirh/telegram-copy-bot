@@ -11,7 +11,7 @@ This is useful when:
 <li>You simply want to copy a channel messages to your own with some changes and adding your own signature</li>
 <li> etc. ...</li>
 
-## Futures
+## Features
 <li>Copy/Paste messages</li>
 <li>Filter words</li>
 <li>Adding signature</li>
