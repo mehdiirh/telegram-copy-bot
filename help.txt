@@ -1,12 +1,12 @@
 <b>link [base] to [target]</b>
-├─ Link "base" channel to "target" channel
-├─ :: <code>add channel @durov to @username</code>
-├─ :: <code>add channel -100123456 to -100654321</code>
+├─ Link "base" entity to "target" entity
+├─ :: <code>link @durov to @username</code>
+├─ :: <code>link -100123456 to -100654321</code>
 
 <b>unlink [base]</b>
-├─ Unlink "base" channel from all target channels
-├─ :: <code>remove channel @durov</code>
-├─ :: <code>remove channel -100123456</code>
+├─ Unlink "base" entity from all entities
+├─ :: <code>unlink @durov</code>
+├─ :: <code>unlink -100123456</code>
 
 <b>add filter "[base]" to "[target]"</b>
 ├─ Filter "base" word to "target" word
