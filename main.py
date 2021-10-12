@@ -1,19 +1,19 @@
 #!venv/bin/python
 
 """
-Forwarder bot v1.0
+Forwarder bot v1.1
 Written by: https://github.com/mehdiirh
 
 1) Create an isolated virtual environment using: `python -m venv venv`
 2) Install requirements using: `pip install -r requirements.txt`
-3) add your API_ID and API_HASH to ~/Login.py
-4) add sudo users to :: ~/plugins/jsons/config.json
+3) add your API_ID and API_HASH to Login.py
+4) add API_ID, API_HASH and sudo to :: plugins/jsons/config.json
 5) run this file ( main.py )
 6) Enter your credential and login
 """
 
 from Login import get_client
-from plugins.utils import Channels, Filters, Config, Messages
+from plugins.utils import Entities, Filters, Config, Messages
 from telethon.sync import events
 from Types import *
 
@@ -24,7 +24,7 @@ import logging
 
 
 # ==================
-channels_manager = Channels()
+entities_manager = Entities()
 filters_manager = Filters()
 config_manager = Config()
 message_manager = Messages()
@@ -62,13 +62,13 @@ async def forwarder(message: Message):
     except AttributeError:
         chat_id = message.chat_id
 
-    if chat_id not in channels_manager.channels:
+    if chat_id not in entities_manager.entities:
         return
 
-    target_channels = channels_manager.get_target_channels(chat_id)
+    target_entities = entities_manager.get_target_entities(chat_id)
 
     if message.poll:
-        for target in target_channels:
+        for target in target_entities:
             await message.forward_to(target)
         return
 
@@ -86,7 +86,7 @@ async def forwarder(message: Message):
         replied_message: Message = await message.get_reply_message()
         replied_message = replied_message.id
 
-    for target in target_channels:
+    for target in target_entities:
 
         if replied_message is not None:
             reply_to = message_manager.get(chat_id, replied_message)
@@ -110,11 +110,11 @@ async def forbid_non_sudo_commands(message: Message):
 
 
 @client.on(events.NewMessage(
-    pattern=r'^[Aa]dd channel @?(-?[1-9a-zA-Z][a-zA-Z0-9_]{4,}) to @?(-?[1-9a-zA-Z][a-zA-Z0-9_]{4,})$'))
+    pattern=r'^[Ll]ink @?(-?[1-9a-zA-Z][a-zA-Z0-9_]{4,}) to @?(-?[1-9a-zA-Z][a-zA-Z0-9_]{4,})$'))
 async def add_config(message: Message):
     msg: str = message.raw_text
     msg = msg.replace('@', '')
-    pattern = re.compile(r'^[Aa]dd channel @?(-?[1-9a-zA-Z][a-zA-Z0-9_]{4,}) to @?(-?[1-9a-zA-Z][a-zA-Z0-9_]{4,})$')
+    pattern = re.compile(r'^[Ll]ink @?(-?[1-9a-zA-Z][a-zA-Z0-9_]{4,}) to @?(-?[1-9a-zA-Z][a-zA-Z0-9_]{4,})$')
 
     match = pattern.match(msg)
     if not match:
@@ -122,45 +122,55 @@ async def add_config(message: Message):
 
     processing: Message = await message.reply('Processing...')
 
-    base_channel = match.group(1).lower()
-    target_channel = match.group(2).lower()
+    base_entity = match.group(1).lower()
+    target_entity = match.group(2).lower()
 
     try:
-        base_channel = int(base_channel)
+        base_entity = int(base_entity)
     except ValueError:
         pass
 
     try:
-        target_channel = int(target_channel)
+        target_entity = int(target_entity)
     except ValueError:
         pass
 
     try:
-        base_channel = await client.get_entity(base_channel)
+        base_entity = await client.get_entity(base_entity)
     except:
-        await processing.edit('❗️ Base channel does not exists')
+        await processing.edit('❗️ Base entity does not exists')
         return
 
     try:
-        target_channel = await client.get_entity(target_channel)
+        target_entity = await client.get_entity(target_entity)
     except:
-        await processing.edit('❗️ Target channel does not exists')
+        await processing.edit('❗️ Target entity does not exists')
         return
 
     try:
-        channels_manager.add_config(base_channel.id, target_channel.id)
+        entities_manager.add_config(base_entity.id, target_entity.id)
     except ValueError as e:
         await processing.edit(f'❗️ {e.args[0]}')
         return
 
-    await processing.edit(f"✅ Channel [ `{base_channel.title}` ] linked with [ `{target_channel.title}` ]")
+    try:
+        base_peer_title = base_entity.title
+    except AttributeError:
+        base_peer_title = base_entity.first_name + base_entity.last_name
+
+    try:
+        target_peer_title = target_entity.title
+    except AttributeError:
+        target_peer_title = target_entity.first_name + target_entity.last_name
+
+    await processing.edit(f"✅ [ `{base_peer_title}` ] linked with [ `{target_peer_title}` ]")
 
 
-@client.on(events.NewMessage(pattern=r'^[Rr]emove channel @?(-?[1-9a-zA-Z][a-zA-Z0-9_]{4,})$'))
+@client.on(events.NewMessage(pattern=r'^[Uu]nlink @?(-?[1-9a-zA-Z][a-zA-Z0-9_]{4,})$'))
 async def remove_config(message: Message):
     msg: str = message.raw_text
     msg = msg.replace('@', '')
-    pattern = re.compile(r'^[Rr]emove channel @?([1-9a-zA-Z][a-zA-Z0-9_]{4,})$')
+    pattern = re.compile(r'^[Uu]nlink @?([1-9a-zA-Z][a-zA-Z0-9_]{4,})$')
 
     match = pattern.match(msg)
     if not match:
@@ -168,26 +178,31 @@ async def remove_config(message: Message):
 
     processing: Message = await message.reply('Processing...')
 
-    base_channel = match.group(1).lower()
+    base_entity = match.group(1).lower()
 
     try:
-        base_channel = int(base_channel)
+        base_entity = int(base_entity)
     except ValueError:
         pass
 
     try:
-        base_channel = await client.get_entity(base_channel)
+        base_entity = await client.get_entity(base_entity)
     except:
-        await processing.edit('❗️ Base channel does not exists')
+        await processing.edit('❗️ Base entity does not exists')
         return
 
     try:
-        count = channels_manager.remove_config(base_channel.id)
+        base_peer_title = base_entity.title
+    except AttributeError:
+        base_peer_title = base_entity.first_name + base_entity.last_name
+
+    try:
+        count = entities_manager.remove_config(base_entity.id)
     except ValueError as e:
         await processing.edit(f'❗️ {e.args[0]}')
         return
 
-    await processing.edit(f"✅ Channel [ `{base_channel.title}` ] unlinked from {count} channels")
+    await processing.edit(f"✅ [ `{base_peer_title}` ] unlinked from {count} entities")
 
 
 @client.on(events.NewMessage(pattern=r'^[Aa]dd filter \"(.+)\" to \"(.+)\"$'))
@@ -232,7 +247,7 @@ async def remove_filter(message: Message):
 
 
 @client.on(events.NewMessage(pattern=r'^[Ff]ilters$'))
-async def filters(message: Message):
+async def get_filters(message: Message):
 
     filters = filters_manager.words
 
@@ -250,7 +265,7 @@ async def filters(message: Message):
 
 
 @client.on(events.NewMessage(pattern=r'^[Ss]ettings'))
-async def filters(message: Message):
+async def get_settings(message: Message):
 
     text = "⚙️ Settings: \n\n"
     text += f"`Bot status   ` ➡ **{'On' if config_manager.bot_enabled else 'Off'}**\n"
@@ -265,18 +280,18 @@ async def filters(message: Message):
     await message.reply(text)
 
 
-@client.on(events.NewMessage(pattern=r'^[Cc]hannels$'))
-async def linked_channels(message: Message):
+@client.on(events.NewMessage(pattern=r'^[Ll]inks'))
+async def get_linked_entities(message: Message):
 
-    channels = channels_manager.configs
+    entities = entities_manager.configs
 
-    if not channels:
-        await message.reply("❗️ There is no linked channels.")
+    if not entities:
+        await message.reply("❗️ There is no linked entities.")
         return
 
-    text = "🖇 Linked channels: \n\n"
+    text = "🖇 Linked entities: \n\n"
 
-    for key, value in channels:
+    for key, value in entities:
         text += f"**{key}** ➡️ **{value}**"
         text += '\n'
 
@@ -356,7 +371,7 @@ async def change_signature_text(message: Message):
 
 
 @client.on(events.NewMessage(pattern=r'^[Hh]elp$'))
-async def change_signature_text(message: Message):
+async def get_help(message: Message):
     with open('help.txt', 'r') as f:
         await message.reply(f.read(), parse_mode='html')
         return
