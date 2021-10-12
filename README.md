@@ -38,7 +38,7 @@ This bot will only answer to `itself` and `sudos`
 | remove filter "[base]" 	| Remove all filters of "base" word 	| - remove filter "hello" 	|
 | sign text [text] 	| Update sign text to [text] 	| - sign text Join my channel @username 	|
 | filters 	| Show all filters 	|  	|
-| channels 	| Show all linked channels 	|  	|
+| links 	| Show all linked channels 	|  	|
 | settings 	| Show all settings 	|  	|
 | on \| off 	| Turn bot on or off 	| - on<br>- off 	|
 | filters [ on \| off ] 	| Enable/Disable filtering words 	| - filters on<br>- filters off 	|
