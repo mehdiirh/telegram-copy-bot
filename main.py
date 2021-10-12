@@ -154,16 +154,20 @@ async def add_config(message: Message):
         return
 
     try:
-        base_peer_title = base_entity.title
+        base_entity_title = base_entity.title
     except AttributeError:
-        base_peer_title = base_entity.first_name + base_entity.last_name
+        base_entity_title = base_entity.first_name
+        if base_entity.last_name:
+            base_entity_title += base_entity.last_name
 
     try:
-        target_peer_title = target_entity.title
+        target_entity_title = target_entity.title
     except AttributeError:
-        target_peer_title = target_entity.first_name + target_entity.last_name
+        target_entity_title = target_entity.first_name + target_entity.last_name
+        if target_entity.last_name:
+            target_entity_title += target_entity.last_name
 
-    await processing.edit(f"✅ [ `{base_peer_title}` ] linked to [ `{target_peer_title}` ]")
+    await processing.edit(f"✅ [ `{base_entity_title}` ] linked to [ `{target_entity_title}` ]")
 
 
 @client.on(events.NewMessage(pattern=r'^[Uu]nlink @?(-?[1-9a-zA-Z][a-zA-Z0-9_]{4,})$'))
@@ -192,9 +196,11 @@ async def remove_config(message: Message):
         return
 
     try:
-        base_peer_title = base_entity.title
+        base_entity_title = base_entity.title
     except AttributeError:
-        base_peer_title = base_entity.first_name + base_entity.last_name
+        base_entity_title = base_entity.first_name
+        if base_entity.last_name:
+            base_entity_title += base_entity.last_name
 
     try:
         count = entities_manager.remove_config(base_entity.id)
@@ -202,7 +208,7 @@ async def remove_config(message: Message):
         await processing.edit(f'❗️ {e.args[0]}')
         return
 
-    await processing.edit(f"✅ [ `{base_peer_title}` ] unlinked from {count} entities")
+    await processing.edit(f"✅ [ `{base_entity_title}` ] unlinked from {count} entities")
 
 
 @client.on(events.NewMessage(pattern=r'^[Aa]dd filter \"(.+)\" to \"(.+)\"$'))
