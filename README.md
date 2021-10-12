@@ -32,8 +32,8 @@ This bot will only answer to `itself` and `sudos`
 
 | Command 	| Description 	| Examples 	|
 |---	|---	|---	|
-| add channel [base] to [target] 	| Link "base" channel to "target" channel 	| - add channel @durov to @username<br>- add channel -100123456 to -100654321 	|
-| remove channel [base] 	| Unlink "base" channel from all target channels 	| - remove channel @durov<br>- remove channel -100123456 	|
+| link [base] to [target] 	| Link "base" entity to "target" entity 	| - link @durov to @username<br>- link -100123456 to -100654321 	|
+| unlink [base] 	| Unlink "base" entity from all target entites 	| - unlink @durov<br>- unlink -100123456 	|
 | add filter "[base]" to "[target]" 	| Filter "base" word to "target" word 	| - add filter "hello" to "bye"<br>- add filter "me" to "you" 	|
 | remove filter "[base]" 	| Remove all filters of "base" word 	| - remove filter "hello" 	|
 | sign text [text] 	| Update sign text to [text] 	| - sign text Join my channel @username 	|
