@@ -24,8 +24,8 @@
 <b>filters</b>
 ├─ Show all filters
 
-<b>channels</b>
-├─ Show all linked channels
+<b>links</b>
+├─ Show all linked entities
 
 <b>settings</b>
 ├─ Show all settings
