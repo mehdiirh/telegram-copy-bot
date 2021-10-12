@@ -163,7 +163,7 @@ async def add_config(message: Message):
     except AttributeError:
         target_peer_title = target_entity.first_name + target_entity.last_name
 
-    await processing.edit(f"✅ [ `{base_peer_title}` ] linked with [ `{target_peer_title}` ]")
+    await processing.edit(f"✅ [ `{base_peer_title}` ] linked to [ `{target_peer_title}` ]")
 
 
 @client.on(events.NewMessage(pattern=r'^[Uu]nlink @?(-?[1-9a-zA-Z][a-zA-Z0-9_]{4,})$'))
