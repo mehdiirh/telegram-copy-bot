@@ -27,7 +27,7 @@ This is useful when:
 
 5 - Done
 
-### Hint
+### Hint:
 If you got ‍‍‍`Base entity does not exists` or `Target entity does not exists` errors, send "Sync" command to the bot to sync your chats
 
 ## Commands
