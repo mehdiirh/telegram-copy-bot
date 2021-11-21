@@ -32,6 +32,7 @@ This bot will only answer to `itself` and `sudos`
 
 | Command 	| Description 	| Examples 	|
 |---	|---	|---	|
+| Sync | Sync all of chats with bot | - Sync |
 | link [base] to [target] 	| Link "base" entity to "target" entity 	| - link @durov to @username<br>- link -100123456 to -100654321 	|
 | unlink [base] 	| Unlink "base" entity from all target entites 	| - unlink @durov<br>- unlink -100123456 	|
 | add filter "[base]" to "[target]" 	| Filter "base" word to "target" word 	| - add filter "hello" to "bye"<br>- add filter "me" to "you" 	|
