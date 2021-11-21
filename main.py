@@ -89,11 +89,15 @@ async def forwarder(message: Message):
     for target in target_entities:
 
         if replied_message is not None:
-            reply_to = message_manager.get(chat_id, replied_message)
+            try:
+                reply_to = message_manager.get(chat_id, replied_message)
+            except ValueError:
+                pass
 
-            for i in reply_to:
-                if i[0] == target:
-                    reply_to = i[1]
+            if reply_to:
+                for i in reply_to:
+                    if i[0] == target:
+                        reply_to = i[1]
 
         sent_message = await client.send_message(target, message.message, reply_to=reply_to)
         message_manager.add(chat_id, message.id, target, sent_message.id)
