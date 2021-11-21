@@ -4,19 +4,19 @@
 <br>
 This bot will copy/paste any message that arrives in a channel to your own channel
 
-## Why Copy/Paste messages?
+## ❓ Why Copy/Paste messages?
 This is useful when:
 <li> You want to back up a channel messages</li>
 <li> You want to buy a premium channel with your friends, so you can have premium channel messages in your own channel and share it with your friends ( don't do this :) )</li>
 <li>You simply want to copy a channel messages to your own with some changes and adding your own signature</li>
 <li> etc. ...</li>
 
-## Features
+## 📍 Features
 <li>Copy/Paste messages</li>
 <li>Filter words</li>
 <li>Adding signature</li>
 
-## Installation
+## ⚙️ Installation
 1 - Install requirements from `requirements.txt`
 
 2 - Add your `API_ID`, `API_HASH` and `sudo IDs` to `/plugins/jsons/config.json`
@@ -27,10 +27,10 @@ This is useful when:
 
 5 - Done
 
-### Hint:
+### 💡 Hint:
 If you got ‍‍‍`Base entity does not exists` or `Target entity does not exists` errors, send "Sync" command to the bot to sync your chats
 
-## Commands
+## 🔠 Commands
 This bot will only answer to `itself` and `sudos`
 
 | Command 	| Description 	| Examples 	|
