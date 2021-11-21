@@ -52,4 +52,5 @@ This bot will only answer to `itself` and `sudos`
 
 ---
 
-Support: [Join Group](https://t.me/PythonUnion)
+## 💬 Support
+[Join Group](https://t.me/PythonUnion)
