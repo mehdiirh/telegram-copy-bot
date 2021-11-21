@@ -27,7 +27,7 @@ This is useful when:
 
 5 - Done
 
-### 💡 Hints:
+## 💡 Hints:
 - Bot need to be joined in both "base" and "target" entities. For channels, bot must also have admin rights in "target" channel to work.
 - If you got ‍‍‍`Base entity does not exists` or `Target entity does not exists` errors, make sure bot is joined in both "base" and "target" entites, and then send "Sync" command to the bot to sync your chats
 
