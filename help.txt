@@ -1,3 +1,7 @@
+<b>Sync</b>
+├─ Sync all of chats with bot
+├─ :: <code>Sync</code>
+
 <b>link [base] to [target]</b>
 ├─ Link "base" entity to "target" entity
 ├─ :: <code>link @durov to @username</code>
