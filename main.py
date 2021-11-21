@@ -92,7 +92,7 @@ async def forwarder(message: Message):
             try:
                 reply_to = message_manager.get(chat_id, replied_message)
             except ValueError:
-                pass
+                message.text = f'[ Replied to message id: {replied_message.id} ]\n\n' + message.text
 
             if reply_to:
                 for i in reply_to:
