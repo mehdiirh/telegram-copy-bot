@@ -1,7 +1,7 @@
 #!venv/bin/python
 
 """
-Forwarder bot v1.1
+Forwarder bot v1.1.2
 Written by: https://github.com/mehdiirh
 
 1) Create an isolated virtual environment using: `python -m venv venv`
@@ -109,6 +109,21 @@ async def forbid_non_sudo_commands(message: Message):
         raise events.StopPropagation
 
 
+@client.on(events.NewMessage(pattern=r'^[Ss]ync$'))
+async def add_config(message: Message):
+
+    replied_message: Message = await message.respond('Syncing dialogs...')
+
+    try:
+        dialogs = await client.get_dialogs()
+    except Exception as e:
+        await message.edit(f'❗️ Error in syncing chats:\n {e}')
+        raise events.StopPropagation
+
+    await replied_message.edit(f"✅ Successfully synced {len(dialogs)} chats")
+    raise events.StopPropagation
+
+
 @client.on(events.NewMessage(
     pattern=r'^[Ll]ink @?(-?[1-9a-zA-Z][a-zA-Z0-9_]{4,}) to @?(-?[1-9a-zA-Z][a-zA-Z0-9_]{4,})$'))
 async def add_config(message: Message):
@@ -163,7 +178,7 @@ async def add_config(message: Message):
     try:
         target_entity_title = target_entity.title
     except AttributeError:
-        target_entity_title = target_entity.first_name + target_entity.last_name
+        target_entity_title = target_entity.first_name
         if target_entity.last_name:
             target_entity_title += target_entity.last_name
 
