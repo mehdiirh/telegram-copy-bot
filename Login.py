@@ -8,5 +8,5 @@ api_hash = config_manager.get('api_hash')
 
 
 def get_client():
-    client = TelegramClient('client', api_id, api_hash)
+    client = TelegramClient('client', api_id, api_hash, sequential_updates=True)
     return client
